@@ -8,12 +8,14 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { ROUTES } from './app.route';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared-materialize/shared.materialize.module';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
