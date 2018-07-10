@@ -1,0 +1,60 @@
+<mz-sidenav #sidenav [id]="'sidenav-demo'" [collapseButtonId]="'openHeader'">
+  <mz-sidenav-header>
+    Sidenav header
+  </mz-sidenav-header>
+  <mz-sidenav-subheader>Link Subheader</mz-sidenav-subheader>
+  <mz-sidenav-link>
+    <a href="#">First Link</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link [active]="true">
+    <a href="#">Active Link</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link>
+    <a href="#" class="waves-effect">Second Link With Waves</a>
+  </mz-sidenav-link>
+</mz-sidenav>
+
+<mz-navbar navbarClass="red darken-1">
+  <mz-navbar-item-container id="menuMobile" [align]="'left hide-on-large-only'">
+    <mz-navbar-item >
+      <i mz-icon-mdi mz-input-prefix id="openHeader" [icon]="'menu'" (click)="sidenav.opened = !sidenav.opened">
+      </i>
+    </mz-navbar-item>
+  </mz-navbar-item-container>
+
+  <div class="container">
+    <a [routerLink]="['/home']" class="brand-logo">
+      Master food</a>
+    <mz-navbar-item-container id="itensHeader" [align]="'right hide-on-med-and-down'">
+      <mz-navbar-item>
+        <a [routerLink]="['/admin']">Painel Admin</a>
+      </mz-navbar-item>
+      <mz-navbar-item>
+        <a [routerLink]="['/sobre']">Sobre</a>
+      </mz-navbar-item>
+      <mz-navbar-item>
+        <button mz-button [routerLink]="['/entrar-ou-cadastrar']">Entrar/Cadastrar-me</button>
+      </mz-navbar-item>
+    </mz-navbar-item-container>
+  </div>
+</mz-navbar>
+
+<!-- <nav>
+    <div class="nav-wrapper red darken-1">
+      <a href="#" class="brand-logo center">Master Food</a>
+
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav> -->
+
+
+<!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+    <i mz-icon-mdi mz-input-prefix [icon]="'menu'">
+    </i>
+  </a> -->
