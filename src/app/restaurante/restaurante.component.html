@@ -1,0 +1,13 @@
+<mz-card class="card horizontal" [hoverable]="true" [routerLink]="['/home']">
+  <mz-card-title style="padding-left: 7px;">
+    <div class="card-image left">
+      <img src="{{restaurante.imagePath}}" style="width:135px !important;height:100px !important;" />
+    </div>
+    {{restaurante.nome}}
+  </mz-card-title>
+  <mz-card-content>
+    <p style="padding-left: 140px;">
+      {{restaurante.descricao}}
+    </p>
+  </mz-card-content>
+</mz-card>

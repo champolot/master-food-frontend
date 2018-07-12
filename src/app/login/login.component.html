@@ -1,12 +1,41 @@
-<mz-card class="card horizontal" [hoverable]="true" [routerLink]="['/home']">
-  <mz-card-title style="padding-left: 7px;">
-    <div class="card-image left">
-      <img src="//cdn.shopify.com/s/files/1/1775/8583/t/1/assets/geometric-cave.jpg?1492269902899598558" style="width:135px !important;height:100px !important;" />
+<div class="container">
+  <div class="row center">
+    <div class="col s12 m12 l6">
+      <mz-card class="card" [hoverable]="true">
+        <mz-card-title>
+          Entrar
+        </mz-card-title>
+        <mz-card-content class=" center">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'email'">
+            </i>
+            <input mz-input [label]="'Email'" [validate]="true" [dataError]="'Email inválido'" id="email-input" length="150" type="email">
+          </mz-input-container>
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'lock'">
+            </i>
+            <input mz-input [label]="'Senha'" id="password-input" length="150" type="password">
+          </mz-input-container>
+        </mz-card-content>
+        <mz-card-action>
+          <a href="#">Esqueceu sua senha?</a>
+          <button mz-button [routerLink]="['/admin']">
+            Entrar
+          </button>
+        </mz-card-action>
+      </mz-card>
     </div>
-  </mz-card-title>
-  <mz-card-content>
-    <p style="padding-left: 140px;">
-      teste
-    </p>
-  </mz-card-content>
-</mz-card>
+
+    <div class="col s12 m6 l6 ">
+      <div class="icon-block">
+        <h2 class="center light-blue-text">
+          <i mz-icon-mdi [align]="'center'" [flip]="'v'" [icon]="'currency-usd'" [rotate]="'45'" [size]="'36px'">
+          </i>
+        </h2>
+        <h5 class="center">Economia é a palavra certa!</h5>
+        <p class="light">Em tempos de crise economizar na hora de pedir a sua comida é a chave!</p>
+      </div>
+    </div>
+
+  </div>
+</div>

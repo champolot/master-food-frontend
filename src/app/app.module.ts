@@ -24,7 +24,7 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     ListarRestaurantesComponent,
     RestauranteComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     HttpModule,
