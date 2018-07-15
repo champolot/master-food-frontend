@@ -15,7 +15,7 @@ export class ListarRestaurantesComponent implements OnInit {
 
   ngOnInit() {
     try {
-      this.restaurantService.findByEndereco().subscribe(restaurantes => this.restaurantes = restaurantes);
+      this.restaurantService.restaurantes().subscribe(restaurantes => this.restaurantes = restaurantes);
     } catch (err) {
       console.log(err);
     }

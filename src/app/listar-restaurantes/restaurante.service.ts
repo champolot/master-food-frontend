@@ -14,8 +14,11 @@ export class RestauranteService {
   constructor(private http: Http, private httpClient: HttpClient) {
   }
 
-  findByEndereco(): Observable<Restaurante[]> {
-    return this.http.get(`${MASTER_FOOD_API}/restaurantes`)
+  restaurantes(search?: Restaurante): Observable<Restaurante[]> {
+    if (Object.keys(search).length === 0) {
+      search = null;
+    }
+    return this.http.get(`${MASTER_FOOD_API}/restaurantes`, { params: search })
       .map(response => response.json())
       .catch(ErrorHandler.handleError);
   }

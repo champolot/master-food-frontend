@@ -1,5 +1,6 @@
+<mf-header-admin></mf-header-admin>
 <div class="container">
-    <mz-sidenav [id]="'sidenav-admin'" [collapseButtonId]="'btn-sidenav-admin'">
+    <mz-sidenav #adminsidenav [id]="'sidenav-admin'" [collapseButtonId]="'btn-sidenav-admin'">
       <mz-sidenav-link>
         <a [routerLink]="['teste-grid']">Teste Grid</a>
       </mz-sidenav-link>
@@ -12,6 +13,5 @@
         <a href="#" class="waves-effect">Second Link With Waves</a>
       </mz-sidenav-link>
     </mz-sidenav>
-    <button mz-button id="btn-sidenav-admin">Open</button>
     <router-outlet></router-outlet>
   </div>

@@ -1,10 +1,13 @@
-<mz-sidenav  #sideNavPrincipal  [id]="'sidenav-demo'" [collapseButtonId]="'openHeader'" [closeOnClick]="true" >
+<mz-sidenav  #sideNavAdmin  [id]="'sidenav-demo'" [collapseButtonId]="'openSide'" [closeOnClick]="true" >
   <mz-sidenav-header>
   </mz-sidenav-header>
   <mz-sidenav-subheader>
   </mz-sidenav-subheader>
   <mz-sidenav-link>
-    <button mz-button [routerLink]="['/login']" (click)="sideNavPrincipal.opened = !sideNavPrincipal.opened" >Entrar/Cadastrar-me</button>
+    <button mz-button class="red" [routerLink]="['/home']" (click)="sideNavAdmin.opened = !sideNavAdmin.opened" >Sair</button>
+  </mz-sidenav-link>
+  <mz-sidenav-link>
+    <a [routerLink]="['cadastro-restaurantes']" class="waves-effect" >Cadastro Restaurantes</a>
   </mz-sidenav-link>
   <mz-sidenav-link>
     <a href="#">First Link</a>
@@ -14,15 +17,11 @@
     <a href="#">Active Link</a>
   </mz-sidenav-link>
   <mz-sidenav-divider></mz-sidenav-divider>
-  <mz-sidenav-link>
-    <a href="#" class="waves-effect">Second Link With Waves</a>
-  </mz-sidenav-link>
 </mz-sidenav>
-
 <mz-navbar navbarClass="red darken-1">
-  <mz-navbar-item-container id="menuMobile" [align]="'left hide-on-large-only'">
+  <mz-navbar-item-container id="menuMobile" [align]="'left'">
     <mz-navbar-item>
-      <i mz-icon-mdi mz-input-prefix id="openHeader" [icon]="'menu'">
+      <i mz-icon-mdi mz-input-prefix id="openSide" [icon]="'menu'">
       </i>
     </mz-navbar-item>
   </mz-navbar-item-container>
@@ -31,14 +30,11 @@
     <a [routerLink]="['/home']" class="brand-logo">
       Master food</a>
     <mz-navbar-item-container id="itensHeader" [align]="'right hide-on-med-and-down'">
-      <!-- <mz-navbar-item>
-        <a [routerLink]="['/admin']">Painel Admin</a>
-      </mz-navbar-item> -->
       <mz-navbar-item>
         <a [routerLink]="['/sobre']">Sobre</a>
       </mz-navbar-item>
       <mz-navbar-item>
-        <button mz-button [routerLink]="['/login']">Entrar/Cadastrar-me</button>
+        <button mz-button [routerLink]="['/home']">Sair</button>
       </mz-navbar-item>
     </mz-navbar-item-container>
   </div>
