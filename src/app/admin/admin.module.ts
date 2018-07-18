@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from '../shared-materialize/shared.materialize.module';
+import { SharedModule } from '../shared/module/shared.materialize.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { CadastroRestaurantesComponent } from './cadastro-restaurantes/cadastro-restaurantes.component';
@@ -14,6 +14,7 @@ const ROUTES: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'cadastro-restaurantes', component: CadastroRestaurantesComponent },
+      { path: 'form-restaurante', component: FormRestauranteComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   }];

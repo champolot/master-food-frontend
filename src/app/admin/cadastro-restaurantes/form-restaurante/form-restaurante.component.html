@@ -1,3 +1,98 @@
-<p>
-  form-restaurante works!
-</p>
+<div class="card-panel">
+  <h4>Cadastro | Restaurante</h4>
+  <form novalidate [formGroup]="cadForm">
+    <div class="row">
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="razaoSocial" [label]="'Razão Social'" (click)="valida('razaoSocial')" [validate]="true"
+          [dataError]="inputError" length="50" minlength="3" maxlength="50" type="text">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="nome" [label]="'Nome Fantasia'" [validate]="true" [dataError]="'Nome fantasia deve ter no mínimo 3 caracteres'"
+          minlength="50" minlength="3" maxlength="50" type="text">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="cnpj" [label]="'CNPJ (opcional)'" length="50" minlength="3" maxlength="50" type="text">
+      </mz-input-container>
+    </div>
+
+    <div class="row">
+      <mz-select-container class="col s12 m3">
+        <select mz-select formControlName="estado" (change)="carregarCidades()" [label]="'Estado'" [placeholder]="'Selecione seu estado'">
+          <option *ngFor="let estado of listaDeEstadosBrasileiros" value="{{estado.sigla}}" class="left circle">{{estado.nome}}</option>
+        </select>
+      </mz-select-container>
+
+      <mz-select-container class="col sm12 m3">
+        <select mz-select formControlName="cidade" [label]="'Cidade'" [placeholder]="'Selecione sua cidade'" [disabled]="!cadForm.value.estado">
+          <option *ngFor="let cidade of cidadesSelect" class="left circle">{{cidade}}</option>
+        </select>
+      </mz-select-container>
+
+      <mz-input-container class="col s12 m6">
+        <input mz-input formControlName="logradouro" [label]="'Logradouro'" length="100" maxlength="100" type="text">
+      </mz-input-container>
+    </div>
+
+    <div class="row">
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="facebook" [label]="'Facebook Fanpage'" length="100" maxlength="100" type="text">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="instagram" [label]="'Instagram'" length="100" maxlength="100" type="text">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="site" [label]="'Site'" length="100" maxlength="100" type="text">
+      </mz-input-container>
+    </div>
+
+    <div class="row">
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="telefone" [label]="'Telefone'" [validate]="true" length="100" maxlength="100" type="tel">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="email" [label]="'E-mail'" [validate]="true" length="100" maxlength="100" type="email">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input formControlName="whatsapp" [label]="'WhatsApp (opcional)'" [validate]="true" length="100" maxlength="100"
+          type="text">
+      </mz-input-container>
+    </div>
+
+    <div class="row">
+      <mz-textarea-container class="col s12 m12">
+        <textarea mz-textarea formControlName="descricao" [label]="'Descrição'" id="comment-textarea" length="150"></textarea>
+      </mz-textarea-container>
+    </div>
+    <div class="row">
+      <mz-select-container class="col s12 m4">
+        <select mz-select formControlName="categoria" [label]="'Categoria'" [placeholder]="'Selecione a Categoria'">
+          <option *ngFor="let categoria of ['Churrascaria','Pizzaria','Comida Japonesa', 'Comida Chinesa', 'Comida Arabe']" value="{{categoria}}"
+            class="left circle">{{categoria}}</option>
+        </select>
+      </mz-select-container>
+
+      <mz-timepicker-container class="col s12 m4">
+        <i mz-icon-mdi mz-input-prefix [icon]="'clock'">
+        </i>
+        <input mz-timepicker formControlName="tempoEstimado" [label]="'Tempo Estimado de Entrega'" [options]="timepickerOptions"
+          id="timepicker" type="text">
+      </mz-timepicker-container>
+    </div>
+    <div class="row">
+      <mz-input-container class="col s12 m12">
+        <input mz-input formControlName="imagePath" [label]="'Imagem URL'" [validate]="true" type="text">
+      </mz-input-container>
+    </div>
+    <div class="row ">
+      <button mz-button [routerLink]="['../cadastro-restaurantes']" class="col m6 red">Cancelar</button>
+      <button mz-button (click)="salvarRestaurante(cadForm.value)" [disabled]="!cadForm.valid" class="col m6">Salvar</button>
+    </div>
+  </form>
+</div>

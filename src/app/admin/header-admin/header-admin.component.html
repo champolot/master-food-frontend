@@ -1,13 +1,13 @@
-<mz-sidenav  #sideNavAdmin  [id]="'sidenav-demo'" [collapseButtonId]="'openSide'" [closeOnClick]="true" >
+<mz-sidenav #sideNavAdmin [id]="'sidenav-demo'" [collapseButtonId]="'openSide'" [closeOnClick]="true">
   <mz-sidenav-header>
   </mz-sidenav-header>
   <mz-sidenav-subheader>
   </mz-sidenav-subheader>
   <mz-sidenav-link>
-    <button mz-button class="red" [routerLink]="['/home']" (click)="sideNavAdmin.opened = !sideNavAdmin.opened" >Sair</button>
+    <button mz-button class="red" [routerLink]="['/home']" (click)="sideNavAdmin.opened = !sideNavAdmin.opened">Sair</button>
   </mz-sidenav-link>
   <mz-sidenav-link>
-    <a [routerLink]="['cadastro-restaurantes']" class="waves-effect" >Cadastro Restaurantes</a>
+    <a [routerLink]="['cadastro-restaurantes']" class="waves-effect">Cadastro Restaurantes</a>
   </mz-sidenav-link>
   <mz-sidenav-link>
     <a href="#">First Link</a>
@@ -32,6 +32,9 @@
     <mz-navbar-item-container id="itensHeader" [align]="'right hide-on-med-and-down'">
       <mz-navbar-item>
         <a [routerLink]="['/sobre']">Sobre</a>
+      </mz-navbar-item>
+      <mz-navbar-item>
+        <button mz-button (click)="openModal()">Modal Service</button>
       </mz-navbar-item>
       <mz-navbar-item>
         <button mz-button [routerLink]="['/home']">Sair</button>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Restaurante} from './restaurante.model';
+import { Restaurante } from './restaurante.model';
 @Component({
   selector: 'mf-restaurante',
   templateUrl: './restaurante.component.html',

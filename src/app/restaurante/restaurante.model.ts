@@ -1,5 +1,5 @@
 export interface Restaurante {
-  id: string;
+  _id?: string;
   nome: string;
   cnpj?: string;
   razaoSocial: string;
@@ -15,6 +15,6 @@ export interface Restaurante {
   facebook?: string;
   instagram?: string;
   whatsapp?: string;
-  telefone?: string;
-  email?: string;
+  telefone: string;
+  email: string;
 }
