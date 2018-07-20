@@ -22,6 +22,4 @@ export class HeaderAdminComponent implements OnInit {
   }
 
 
-
-
 }

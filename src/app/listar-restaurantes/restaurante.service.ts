@@ -17,7 +17,7 @@ export class RestauranteService {
     if (filter) {
       parametros = new HttpParams().set('nome', filter.nome);
     }
-    return this.httpClient.get<Restaurante[]>(`${MASTER_FOOD_API}/restaurantess`, { params: parametros });
+    return this.httpClient.get<Restaurante[]>(`${MASTER_FOOD_API}/restaurantes`, { params: parametros });
   }
 
   save(restaurante: Restaurante) {
