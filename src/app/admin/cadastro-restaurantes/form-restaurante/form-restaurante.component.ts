@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { ESTADOS_BRASILEIROS } from '../../../shared/enderecos/estados-brasileiros';
 import { CIDADES_BRASILEIRAS } from '../../../shared/enderecos/cidades-brasileiras';
 import { Estado } from '../../../shared/enderecos/estado.model';
@@ -74,8 +74,7 @@ export class FormRestauranteComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService,
-    public el: ElementRef) {
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
   }
 
 
