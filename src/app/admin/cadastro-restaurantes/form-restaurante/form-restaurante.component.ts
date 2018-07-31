@@ -3,9 +3,10 @@ import { ESTADOS_BRASILEIROS } from '../../../shared/enderecos/estados-brasileir
 import { CIDADES_BRASILEIRAS } from '../../../shared/enderecos/cidades-brasileiras';
 import { Estado } from '../../../shared/enderecos/estado.model';
 import { CidadesEstados } from '../../../shared/enderecos/cidades-estados.model';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { RestauranteService } from '../../../listar-restaurantes/restaurante.service';
 import { Restaurante } from '../../../restaurante/restaurante.model';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'mf-form-restaurante',
@@ -22,17 +23,55 @@ export class FormRestauranteComponent implements OnInit {
   cadForm: FormGroup;
   inputError = 'nenhum erro';
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  campoObrigatorio = 'Campo obrigatório';
+  messageSuccess = 'OK';
+  // error messages
+  errorMessageResources = {
+    nome: {
+      required: this.campoObrigatorio,
+      minlength: 'First name must be at least 4 characters long.',
+    },
+    razaoSocial: {
+      required: this.campoObrigatorio,
+      minlength: 'First name must be at least 4 characters long.',
+    },
+    cnpj: {
+      minlength: 'First name must be at least 4 characters long.',
+    },
+    estado: {
+      required: this.campoObrigatorio,
+    },
+    cidade: {
+      required: this.campoObrigatorio,
+    },
+    logradouro: {
+      required: this.campoObrigatorio,
+    },
+    facebook: {
 
-  timepickerOptions: Pickadate.TimeOptions = {
-    default: '00:30', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Limpar', // text for clear-button
-    canceltext: 'Cancelar', // Text for cancel-button
-    autoclose: true, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: () => alert('AfterShow has been invoked.'), // function for after opening timepicker
+    },
+    instagram: {},
+    site: {},
+    telefone: {
+      required: this.campoObrigatorio,
+    },
+    email: {
+      required: this.campoObrigatorio,
+      pattern: 'Formato de e-mail inválido'
+    },
+    whatsapp: {},
+    descricao: {
+      required: this.campoObrigatorio,
+    },
+    categoria: {
+      required: this.campoObrigatorio,
+    },
+    tempoEstimado: {
+      required: this.campoObrigatorio,
+    },
+    imagePath: {
+      required: this.campoObrigatorio,
+    }
   };
 
   constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
@@ -50,22 +89,26 @@ export class FormRestauranteComponent implements OnInit {
 
   ngOnInit() {
     this.cadForm = this.formBuilder.group({
-      razaoSocial: this.formBuilder.control('', [Validators.required]),
-      nome: this.formBuilder.control('', [Validators.required]),
-      cnpj: this.formBuilder.control(''),
-      descricao: this.formBuilder.control('', [Validators.required]),
+      razaoSocial: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      nome: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      cnpj: this.formBuilder.control('', [Validators.minLength(11), Validators.maxLength(14)]),
+      descricao: this.formBuilder.control('', [Validators.required, Validators.minLength(50)]),
       categoria: this.formBuilder.control('', [Validators.required]),
       tempoEstimado: this.formBuilder.control('', [Validators.required]),
       imagePath: this.formBuilder.control('', [Validators.required]),
       estado: this.formBuilder.control('', [Validators.required]),
       cidade: this.formBuilder.control({ value: undefined }, [Validators.required]),
-      logradouro: this.formBuilder.control('', [Validators.required]),
+      logradouro: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
       site: this.formBuilder.control(''),
       facebook: this.formBuilder.control(''),
       instagram: this.formBuilder.control(''),
       whatsapp: this.formBuilder.control(''),
       telefone: this.formBuilder.control('', [Validators.required]),
       email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)])
+    });
+
+    $(document).ready(function() {
+      $('#cnpj').val('jumento celestino');
     });
   }
 
@@ -74,6 +117,7 @@ export class FormRestauranteComponent implements OnInit {
     console.log(this.selecionarCidadesDeEstado(this.cadForm.value.estado));
     this.cidadesSelect = this.selecionarCidadesDeEstado(this.cadForm.value.estado);
   }
+
 
   /**
    *
@@ -121,6 +165,16 @@ export class FormRestauranteComponent implements OnInit {
 
   retornarSomenteNumeros(str: string) {
     return str.replace(/[^\d]+/g, '');
+  }
+
+  teste(control: FormControl) {
+    return null;
+  }
+
+  converter(tempo: string) {
+    const arr: Array<string> = tempo.split(':');
+    return (arr[0] !== '0:0' && arr[1] !== '0:0') ? (parseInt(arr[0], 10) * 60) + parseInt(arr[1], 10) : false;
+
   }
 
 
