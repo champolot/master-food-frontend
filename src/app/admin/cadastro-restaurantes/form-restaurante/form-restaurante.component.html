@@ -13,67 +13,77 @@
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="cnpj" formControlName="cnpj" [dataSuccess]="'OK'" [label]="'CNPJ (opcional)'" [errorMessageResource]="errorMessageResources.cnpj" length="50"
-          minlength="3" maxlength="50" type="text">
+        <input mz-input mz-validation id="cnpj" formControlName="cnpj" [dataSuccess]="'OK'" [label]="'CNPJ (opcional)'" [errorMessageResource]="errorMessageResources.cnpj"
+          length="50" minlength="3" maxlength="50" type="text">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-select-container class="col s12 m3">
-        <select mz-select mz-validation id="estado" formControlName="estado" (change)="carregarCidades()" [label]="'Estado'" [errorMessageResource]="errorMessageResources.estado" [placeholder]="'Selecione seu estado'">
+        <select mz-select mz-validation id="estado" formControlName="estado" (change)="carregarCidades()" [label]="'Estado'" [errorMessageResource]="errorMessageResources.estado"
+          [placeholder]="'Selecione seu estado'">
           <option *ngFor="let estado of listaDeEstadosBrasileiros" value="{{estado.sigla}}" class="left circle">{{estado.nome}}</option>
         </select>
       </mz-select-container>
 
       <mz-select-container class="col sm12 m3">
-        <select mz-select mz-validation id="cidade" formControlName="cidade" [label]="'Cidade'" [errorMessageResource]="errorMessageResources.cidade" [placeholder]="'Selecione sua cidade'"
-          [disabled]="!cadForm.value.estado">
+        <select mz-select mz-validation id="cidade" formControlName="cidade" [label]="'Cidade'" [errorMessageResource]="errorMessageResources.cidade"
+          [placeholder]="'Selecione sua cidade'" [disabled]="!cadForm.value.estado">
           <option *ngFor="let cidade of cidadesSelect" class="left circle">{{cidade}}</option>
         </select>
       </mz-select-container>
 
       <mz-input-container class="col s12 m6">
-        <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro'" [errorMessageResource]="errorMessageResources.logradouro" length="100" type="text">
+        <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro'" [errorMessageResource]="errorMessageResources.logradouro"
+          length="100" type="text">
       </mz-input-container>
     </div>
 
     <div class="row">
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage'" [errorMessageResource]="errorMessageResources.facebook" length="100" type="text">
+        <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage'"
+          [errorMessageResource]="errorMessageResources.facebook" length="100" type="text">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram'" [errorMessageResource]="errorMessageResources.instagram" length="100" type="text">
+        <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram'" [errorMessageResource]="errorMessageResources.instagram"
+          length="100" type="text">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site'" [errorMessageResource]="errorMessageResources.site" length="100" type="text">
+        <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site'" [errorMessageResource]="errorMessageResources.site"
+          length="100" type="text">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone'" [errorMessageResource]="errorMessageResources.telefone" length="100" type="tel">
+        <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone'" [errorMessageResource]="errorMessageResources.telefone"
+          length="100" type="text">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail'" [errorMessageResource]="errorMessageResources.email"  length="100" type="email">
+        <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail'" [errorMessageResource]="errorMessageResources.email"
+          length="100" type="email">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'WhatsApp (opcional)'" [errorMessageResource]="errorMessageResources.whatsapp"  length="100" type="text">
+        <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'WhatsApp (opcional)'"
+          [errorMessageResource]="errorMessageResources.whatsapp" length="100" type="text">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-textarea-container class="col s12 m12">
-        <textarea mz-textarea mz-validation id="descricao" formControlName="descricao" [label]="'Descrição (obrigatório)'" [errorMessageResource]="errorMessageResources.descricao" length="150"></textarea>
+        <textarea mz-textarea mz-validation id="descricao" formControlName="descricao" [label]="'Descrição (obrigatório)'" [errorMessageResource]="errorMessageResources.descricao"
+          length="150"></textarea>
       </mz-textarea-container>
     </div>
     <div class="row">
       <mz-select-container class="col s12 m4">
-        <select mz-select mz-validation id="categoria" formControlName="categoria" [label]="'Categoria'" [errorMessageResource]="errorMessageResources.categoria" [placeholder]="'Selecione a Categoria'">
+        <select mz-select mz-validation id="categoria" formControlName="categoria" [label]="'Categoria'" [errorMessageResource]="errorMessageResources.categoria"
+          [placeholder]="'Selecione a Categoria'">
           <option *ngFor="let categoria of ['Churrascaria','Pizzaria','Comida Japonesa', 'Comida Chinesa', 'Comida Arabe']" value="{{categoria}}"
             class="left circle">{{categoria}}</option>
         </select>
@@ -82,13 +92,14 @@
       <mz-input-container class="col s12 m6">
         <i mz-icon-mdi mz-input-prefix [icon]="'clock'">
         </i>
-        <input input mz-input mz-validation id="tempoEstimado" formControlName="tempoEstimado" [dataSuccess]="'OK'" [label]="'Tempo Estimado de Entrega (em minutos)'" [errorMessageResource]="errorMessageResources.tempoEstimado"
-          id="tempoEstimado" type="number">
+        <input input mz-input mz-validation id="tempoEstimado" formControlName="tempoEstimado" [dataSuccess]="'OK'" [label]="'Tempo Estimado de Entrega (em minutos)'"
+          [errorMessageResource]="errorMessageResources.tempoEstimado" id="tempoEstimado" type="number">
       </mz-input-container>
     </div>
     <div class="row">
       <mz-input-container class="col s12 m12">
-        <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL'" [errorMessageResource]="errorMessageResources.imagePath" type="text">
+        <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL'" [errorMessageResource]="errorMessageResources.imagePath"
+          type="text">
       </mz-input-container>
     </div>
     <div class="row ">

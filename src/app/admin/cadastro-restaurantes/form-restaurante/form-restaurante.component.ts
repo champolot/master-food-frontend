@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { ESTADOS_BRASILEIROS } from '../../../shared/enderecos/estados-brasileiros';
 import { CIDADES_BRASILEIRAS } from '../../../shared/enderecos/cidades-brasileiras';
 import { Estado } from '../../../shared/enderecos/estado.model';
@@ -13,7 +13,7 @@ import * as $ from 'jquery';
   templateUrl: './form-restaurante.component.html',
   styleUrls: ['./form-restaurante.component.css']
 })
-export class FormRestauranteComponent implements OnInit {
+export class FormRestauranteComponent implements OnInit, AfterViewInit {
 
   listaDeEstadosBrasileiros: Array<Estado> = ESTADOS_BRASILEIROS;
   listaCidadesBrasileiras: Array<CidadesEstados> = CIDADES_BRASILEIRAS;
@@ -74,7 +74,8 @@ export class FormRestauranteComponent implements OnInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService,
+    public el: ElementRef) {
   }
 
 
@@ -85,6 +86,8 @@ export class FormRestauranteComponent implements OnInit {
 
   eventHandler(event) {
     console.log(event, event.keyCode, event.keyIdentifier);
+  }
+  ngAfterViewInit(): void {
   }
 
   ngOnInit() {
@@ -107,8 +110,11 @@ export class FormRestauranteComponent implements OnInit {
       email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)])
     });
 
-    $(document).ready(function() {
-      $('#cnpj').val('jumento celestino');
+    $(document).ready(function () {
+      $('#telefone').val('(__) ____-____');
+      $('#telefone').keydown(function (event) {
+        console.log(event.originalEvent);
+      });
     });
   }
 
