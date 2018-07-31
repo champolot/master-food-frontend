@@ -16,18 +16,19 @@ import { MzSpinnerModule } from 'ngx-materialize';
 import { MzValidationModule } from 'ngx-materialize';
 import { MzModalModule } from 'ngx-materialize';
 import { NotificationService } from '../messages/notification.service';
+import { MzTabModule } from 'ngx-materialize';
 
 
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MzNavbarModule, MzCardModule, MzSelectModule,
     MzButtonModule, MzInputModule, MzSidenavModule, MzIconModule, MzIconMdiModule, MzTextareaModule,
-    MzTimepickerModule, MzSpinnerModule, MzValidationModule, MzModalModule
+    MzTimepickerModule, MzSpinnerModule, MzValidationModule, MzModalModule, MzTabModule
   ],
 
   exports: [CommonModule, FormsModule, ReactiveFormsModule, MzNavbarModule, MzCardModule, MzSelectModule,
     MzButtonModule, MzInputModule, MzSidenavModule, MzIconModule, MzIconMdiModule, MzTextareaModule,
-    MzTimepickerModule, MzSpinnerModule, MzValidationModule, MzModalModule
+    MzTimepickerModule, MzSpinnerModule, MzValidationModule, MzModalModule, MzTabModule
   ],
 })
 

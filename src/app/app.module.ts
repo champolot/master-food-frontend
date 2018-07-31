@@ -14,8 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ApplicationErrorHandler } from './app.error-handler';
 import { ErrorDialogComponent } from './shared/messages/error-dialog/error-dialog.component';
-
-// import { MzModalService } from 'ngx-materialize';
+import { CardapioRestauranteComponent } from './restaurante/cardapio-restaurante/cardapio-restaurante.component';
 
 
 @NgModule({
@@ -28,6 +27,7 @@ import { ErrorDialogComponent } from './shared/messages/error-dialog/error-dialo
     RestauranteComponent,
     LoginComponent,
     ErrorDialogComponent,
+    CardapioRestauranteComponent,
   ],
   imports: [
     HttpClientModule,

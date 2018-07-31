@@ -9,7 +9,13 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class RestauranteService {
 
+  private basePath = 'restaurantes';
+
   constructor(private httpClient: HttpClient) {
+  }
+
+  findById(id: String): Observable<Restaurante> {
+    return this.httpClient.get<Restaurante>(`${MASTER_FOOD_API}/${this.basePath}/${id}`);
   }
 
   restaurantes(filter?: Restaurante): Observable<Restaurante[]> {
@@ -17,12 +23,12 @@ export class RestauranteService {
     if (filter) {
       parametros = new HttpParams().set('nome', filter.nome);
     }
-    return this.httpClient.get<Restaurante[]>(`${MASTER_FOOD_API}/restaurantes`, { params: parametros });
+    return this.httpClient.get<Restaurante[]>(`${MASTER_FOOD_API}/${this.basePath}`, { params: parametros });
   }
 
   save(restaurante: Restaurante) {
     const headers = new HttpHeaders();
-    return this.httpClient.post<Restaurante>(`${MASTER_FOOD_API}/restaurantes`, restaurante);
+    return this.httpClient.post<Restaurante>(`${MASTER_FOOD_API}/${this.basePath}`, restaurante);
   }
 
 }
