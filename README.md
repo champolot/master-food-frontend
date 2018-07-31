@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Frameworks
 
-- https://igorescobar.github.io/jQuery-Mask-Plugin/
+- https://www.npmjs.com/package/angular2-text-mask
 
 ## Development server
 
