@@ -2,7 +2,7 @@
 <div class="container">
   <mz-card [hoverable]="true">
     <mz-card-title style="padding-left: 7px;">
-      <div class="card-image left">
+      <div class="card-image left" *ngIf="restaurante">
         <img src="{{restaurante?.imagePath}}" style="width:135px !important;height:100px !important;" />
       </div>
       {{restaurante?.nome}}
@@ -13,21 +13,18 @@
       </p>
       <br>
       <br>
-      <br>
     </mz-card-content>
     <mz-card-action>
-      <mz-tab [fixedTabWidth]="'true'" [onShow]="" [responsiveThreshold]="'true'" [swipeable]="'true'">
-        <mz-tab-item [active]="'true'" [label]="'Cardapio'">
-          <p>
-            cardapio here
-          </p>
-        </mz-tab-item>
-        <mz-tab-item [label]="'Avaliações'">
-          <p>
-            avaliacoes
-          </p>
-        </mz-tab-item>
-      </mz-tab>
+      <ul class="tabs tabs-fixed-width  ">
+        <li class="tab">
+          <a  routerLinkActive="active" href="" [routerLink]="['cardapio']">Cardápio</a>
+        </li>
+        <li class="tab">
+          <a routerLinkActive="active" href="" [routerLink]="['avaliacoes']">Avaliações</a>
+        </li>
+      </ul>
+      <router-outlet></router-outlet>
     </mz-card-action>
   </mz-card>
+
 </div>

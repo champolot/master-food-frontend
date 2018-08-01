@@ -15,6 +15,10 @@ import { LoginComponent } from './login/login.component';
 import { ApplicationErrorHandler } from './app.error-handler';
 import { ErrorDialogComponent } from './shared/messages/error-dialog/error-dialog.component';
 import { RestauranteDetalhesComponent } from './restaurante/restaurante-detalhes/restaurante-detalhes.component';
+import { CarrinhoComprasComponent } from './restaurante/restaurante-detalhes/carrinho-compras/carrinho-compras.component';
+import { CardapioItemComponent } from './restaurante/restaurante-detalhes/cardapio-item/cardapio-item.component';
+import { CardapioComponent } from './restaurante/restaurante-detalhes/cardapio/cardapio.component';
+import { AvaliacoesComponent } from './restaurante/restaurante-detalhes/avaliacoes/avaliacoes.component';
 
 
 @NgModule({
@@ -28,6 +32,10 @@ import { RestauranteDetalhesComponent } from './restaurante/restaurante-detalhes
     LoginComponent,
     ErrorDialogComponent,
     RestauranteDetalhesComponent,
+    CarrinhoComprasComponent,
+    CardapioItemComponent,
+    CardapioComponent,
+    AvaliacoesComponent,
   ],
   imports: [
     HttpClientModule,

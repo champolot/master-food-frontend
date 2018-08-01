@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Restaurante } from '../restaurante.model';
 import { RestauranteService } from '../../listar-restaurantes/restaurante.service';
 import { ActivatedRoute } from '@angular/router';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'mf-restaurante-detalhes',
   templateUrl: './restaurante-detalhes.component.html',
