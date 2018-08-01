@@ -3,7 +3,7 @@
   <form novalidate [formGroup]="cadForm">
     <div class="row">
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="razaoSocial" formControlName="razaoSocial" [label]="'Razão Social'" [errorMessageResource]="errorMessageResources.razaoSocial"
+        <input mz-input mz-validation id="razaoSocial" formControlName="razaoSocial" [label]="'Razão Social (opcional)'" [errorMessageResource]="errorMessageResources.razaoSocial"
           [dataSuccess]="messageSuccess" type="text" [length]="50" (blur)="utilInput.trim(cadForm, 'razaoSocial')">
       </mz-input-container>
 
@@ -33,43 +33,50 @@
         </select>
       </mz-select-container>
 
-      <mz-input-container class="col s12 m6">
-        <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro'" [errorMessageResource]="errorMessageResources.logradouro"
-          length="100" type="text" (blur)="utilInput.trim(cadForm, 'logradouro')">
+      <mz-input-container class="col s12 m3">
+        <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.logradouro" length="100" type="text" (blur)="utilInput.trim(cadForm, 'logradouro')">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m3">
+        <input mz-input mz-validation id="cep" formControlName="cep" [dataSuccess]="'OK'" [label]="'Cep (obrigatório)'" [errorMessageResource]="errorMessageResources.cep"
+          length="100" type="text" [textMask]="{mask: utilMask.cep, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'cep')">
       </mz-input-container>
     </div>
 
     <div class="row">
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage'"
+        <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage (opcional)'"
           [errorMessageResource]="errorMessageResources.facebook" length="100" type="text" (blur)="utilInput.trim(cadForm, 'facebook')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram'" [errorMessageResource]="errorMessageResources.instagram"
-          length="100" type="text" (blur)="utilInput.trim(cadForm, 'instagram')">
+        <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram (opcional)'"
+          [errorMessageResource]="errorMessageResources.instagram" length="100" type="text" (blur)="utilInput.trim(cadForm, 'instagram')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site'" [errorMessageResource]="errorMessageResources.site"
+        <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site (opcional)'" [errorMessageResource]="errorMessageResources.site"
           length="100" type="text" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone'" [errorMessageResource]="errorMessageResources.telefone"
-          type="text" [textMask]="{mask: utilMask.telefone, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'telefone')">
+        <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.telefone" type="text" [textMask]="{mask: utilMask.telefone, guide:true, placeholderChar:'\u2000'}"
+          (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'telefone')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'Celular/WhatsApp (opcional)'"
-          [errorMessageResource]="errorMessageResources.whatsapp" type="text" [textMask]="{mask: utilMask.celular, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'whatsapp')">
+          [errorMessageResource]="errorMessageResources.whatsapp" type="text" [textMask]="{mask: utilMask.celular, guide:true, placeholderChar:'\u2000'}"
+          (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'whatsapp')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail'" [errorMessageResource]="errorMessageResources.email"
+        <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail (obrigatório)'" [errorMessageResource]="errorMessageResources.email"
           length="100" type="email" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
 
@@ -99,8 +106,8 @@
     </div>
     <div class="row">
       <mz-input-container class="col s12 m12">
-        <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL'" [errorMessageResource]="errorMessageResources.imagePath"
-          type="text" (blur)="utilInput.trim(cadForm, 'imagePath')">
+        <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.imagePath" type="text" (blur)="utilInput.trim(cadForm, 'imagePath')">
       </mz-input-container>
     </div>
     <div class="row ">

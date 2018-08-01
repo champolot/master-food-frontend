@@ -50,6 +50,10 @@ export class FormRestauranteComponent implements OnInit {
     },
     logradouro: {
       required: this.campoObrigatorio,
+      minlength: this.msgMinLength
+    },
+    cep: {
+      required: this.campoObrigatorio
     },
     facebook: {
       pattern: 'Formato de URL inválido. Padrão de URL: https://facebook.com/SUAPAGINA'
@@ -96,8 +100,9 @@ export class FormRestauranteComponent implements OnInit {
       tempoEstimado: this.formBuilder.control('', [Validators.required]),
       imagePath: this.formBuilder.control('', [Validators.required]),
       estado: this.formBuilder.control('', [Validators.required]),
-      cidade: this.formBuilder.control({ value: undefined }, [Validators.required]),
+      cidade: this.formBuilder.control({ value: '' }, [Validators.required]),
       logradouro: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      cep: this.formBuilder.control('', [Validators.required]),
       site: this.formBuilder.control('', [Validators.pattern(UtilPatterns.websiteURL)]),
       facebook: this.formBuilder.control('', [Validators.pattern(UtilPatterns.facebookPage)]),
       instagram: this.formBuilder.control('', [Validators.pattern(UtilPatterns.instagramPage)]),
