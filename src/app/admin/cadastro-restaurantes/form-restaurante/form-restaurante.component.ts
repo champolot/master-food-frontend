@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ESTADOS_BRASILEIROS } from '../../../shared/enderecos/estados-brasileiros';
 import { CIDADES_BRASILEIRAS } from '../../../shared/enderecos/cidades-brasileiras';
 import { Estado } from '../../../shared/enderecos/estado.model';
@@ -6,37 +6,41 @@ import { CidadesEstados } from '../../../shared/enderecos/cidades-estados.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { RestauranteService } from '../../../listar-restaurantes/restaurante.service';
 import { Restaurante } from '../../../restaurante/restaurante.model';
-import * as $ from 'jquery';
+import { UtilMask } from '../../../shared/utils/util.mask';
+import { UtilInput } from '../../../shared/utils/util.input';
+import { UtilPatterns } from '../../../shared/utils/util.patterns';
 
 @Component({
   selector: 'mf-form-restaurante',
   templateUrl: './form-restaurante.component.html',
   styleUrls: ['./form-restaurante.component.css']
 })
-export class FormRestauranteComponent implements OnInit, AfterViewInit {
-
+export class FormRestauranteComponent implements OnInit {
+  utilMask = UtilMask;
+  utilInput = UtilInput;
   listaDeEstadosBrasileiros: Array<Estado> = ESTADOS_BRASILEIROS;
   listaCidadesBrasileiras: Array<CidadesEstados> = CIDADES_BRASILEIRAS;
   cidadesSelect: Array<string>;
   check = true;
   estado: any;
   cadForm: FormGroup;
-  inputError = 'nenhum erro';
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   campoObrigatorio = 'Campo obrigatório';
   messageSuccess = 'OK';
+  msgMinLength = 'campo deve ter no mínimo 3 caracteres';
+
+
   // error messages
   errorMessageResources = {
     nome: {
       required: this.campoObrigatorio,
-      minlength: 'First name must be at least 4 characters long.',
+      minlength: this.msgMinLength
     },
     razaoSocial: {
       required: this.campoObrigatorio,
-      minlength: 'First name must be at least 4 characters long.',
+      minlength: this.msgMinLength
     },
     cnpj: {
-      minlength: 'First name must be at least 4 characters long.',
+      minlength: 'O campo deve ter 11 ou 14 caracteres '
     },
     estado: {
       required: this.campoObrigatorio,
@@ -46,12 +50,20 @@ export class FormRestauranteComponent implements OnInit, AfterViewInit {
     },
     logradouro: {
       required: this.campoObrigatorio,
+      minlength: this.msgMinLength
+    },
+    cep: {
+      required: this.campoObrigatorio
     },
     facebook: {
-
+      pattern: 'Formato de URL inválido. Padrão de URL: https://facebook.com/SUAPAGINA'
     },
-    instagram: {},
-    site: {},
+    instagram: {
+      pattern: 'Formato de URL inválido. Padrão de URL: https://instagram.com/SUAPAGINA'
+    },
+    site: {
+      pattern: 'Formato de URL inválido'
+    },
     telefone: {
       required: this.campoObrigatorio,
     },
@@ -62,6 +74,7 @@ export class FormRestauranteComponent implements OnInit, AfterViewInit {
     whatsapp: {},
     descricao: {
       required: this.campoObrigatorio,
+      minlength: 'O campo deve ter no mínimo 20 caracteres'
     },
     categoria: {
       required: this.campoObrigatorio,
@@ -74,20 +87,7 @@ export class FormRestauranteComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService,
-    public el: ElementRef) {
-  }
-
-
-  valida(field: string) {
-    console.log(this.cadForm.controls[field].parent.controls['value']);
-    return this.cadForm.get(field).errors;
-  }
-
-  eventHandler(event) {
-    console.log(event, event.keyCode, event.keyIdentifier);
-  }
-  ngAfterViewInit(): void {
+  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
   }
 
   ngOnInit() {
@@ -95,27 +95,23 @@ export class FormRestauranteComponent implements OnInit, AfterViewInit {
       razaoSocial: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
       nome: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
       cnpj: this.formBuilder.control('', [Validators.minLength(11), Validators.maxLength(14)]),
-      descricao: this.formBuilder.control('', [Validators.required, Validators.minLength(50)]),
+      descricao: this.formBuilder.control('', [Validators.required, Validators.minLength(20)]),
       categoria: this.formBuilder.control('', [Validators.required]),
       tempoEstimado: this.formBuilder.control('', [Validators.required]),
       imagePath: this.formBuilder.control('', [Validators.required]),
       estado: this.formBuilder.control('', [Validators.required]),
-      cidade: this.formBuilder.control({ value: undefined }, [Validators.required]),
+      cidade: this.formBuilder.control({ value: '' }, [Validators.required]),
       logradouro: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
-      site: this.formBuilder.control(''),
-      facebook: this.formBuilder.control(''),
-      instagram: this.formBuilder.control(''),
+      cep: this.formBuilder.control('', [Validators.required]),
+      site: this.formBuilder.control('', [Validators.pattern(UtilPatterns.websiteURL)]),
+      facebook: this.formBuilder.control('', [Validators.pattern(UtilPatterns.facebookPage)]),
+      instagram: this.formBuilder.control('', [Validators.pattern(UtilPatterns.instagramPage)]),
       whatsapp: this.formBuilder.control(''),
-      telefone: this.formBuilder.control('', [Validators.required]),
-      email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)])
+      telefone: this.formBuilder.control('', [Validators.required, Validators.minLength(14)]),
+      email: this.formBuilder.control('', [Validators.required, Validators.pattern(UtilPatterns.email)])
     });
 
-    $(document).ready(function () {
-      $('#telefone').val('(__) ____-____');
-      $('#telefone').keydown(function (event) {
-        console.log(event.originalEvent);
-      });
-    });
+
   }
 
   carregarCidades() {
