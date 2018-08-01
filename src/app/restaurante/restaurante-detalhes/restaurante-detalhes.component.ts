@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurante } from '../restaurante.model';
-import { ActivatedRoute } from '@angular/router';
 import { RestauranteService } from '../../listar-restaurantes/restaurante.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'mf-cardapio-restaurante',
-  templateUrl: './cardapio-restaurante.component.html',
-  styleUrls: ['./cardapio-restaurante.component.css']
+  selector: 'mf-restaurante-detalhes',
+  templateUrl: './restaurante-detalhes.component.html',
+  styleUrls: ['./restaurante-detalhes.component.css']
 })
-export class CardapioRestauranteComponent implements OnInit {
+export class RestauranteDetalhesComponent implements OnInit {
 
 
   restaurante: Restaurante;
@@ -18,6 +18,6 @@ export class CardapioRestauranteComponent implements OnInit {
 
   ngOnInit() {
     this.restauranteService.findById(this.route.snapshot.params['id'])
-      .subscribe(restaurante => restaurante = restaurante);
+      .subscribe(restaurante => this.restaurante = restaurante);
   }
 }

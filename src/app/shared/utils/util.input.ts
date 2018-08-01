@@ -24,8 +24,8 @@ export class UtilInput {
   /**
    * Verifica se o campo de telefone/celular não contém espaços
    * caso haja espaços, o conteúdo do campo será apagado
-   * @param formGroup formGroup do qual será obtido o parâmetro para verificação
-   * @param propFormName nome do parâmetro do formGroup
+   * @param formGroup formGroup em que será aplicada a ação
+   * @param propFormName nome do elemento do formGroup em que será aplicada a ação
    */
   static verificarPreenchimentoDeTelefone(formGroup: FormGroup, propFormName: string) {
     const value = formGroup.get(propFormName).value;
@@ -33,5 +33,14 @@ export class UtilInput {
       formGroup.get(propFormName).setValue('');
     }
   }
-
+  /**
+   * Apaga o conteúdo de um campo se encontrar espaços
+   * @param formGroup formGroup em que será aplicada a ação
+   * @param propFormName nome do elemento do formGroup em que será aplicada a ação
+   */
+  static removerConteudoComEspacos(formGroup: FormGroup, propFormName: string) {
+    if (formGroup.get(propFormName).value.indexOf('\u2000') !== -1) {
+      formGroup.get(propFormName).setValue('');
+    }
+  }
 }

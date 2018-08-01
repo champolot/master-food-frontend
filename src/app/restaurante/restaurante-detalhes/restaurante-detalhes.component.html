@@ -1,0 +1,33 @@
+<mf-header></mf-header>
+<div class="container">
+  <mz-card [hoverable]="true">
+    <mz-card-title style="padding-left: 7px;">
+      <div class="card-image left">
+        <img src="{{restaurante?.imagePath}}" style="width:135px !important;height:100px !important;" />
+      </div>
+      {{restaurante?.nome}}
+    </mz-card-title>
+    <mz-card-content>
+      <p style="padding-left: 140px;">
+        {{restaurante?.descricao}}
+      </p>
+      <br>
+      <br>
+      <br>
+    </mz-card-content>
+    <mz-card-action>
+      <mz-tab [fixedTabWidth]="'true'" [onShow]="" [responsiveThreshold]="'true'" [swipeable]="'true'">
+        <mz-tab-item [active]="'true'" [label]="'Cardapio'">
+          <p>
+            cardapio here
+          </p>
+        </mz-tab-item>
+        <mz-tab-item [label]="'Avaliações'">
+          <p>
+            avaliacoes
+          </p>
+        </mz-tab-item>
+      </mz-tab>
+    </mz-card-action>
+  </mz-card>
+</div>

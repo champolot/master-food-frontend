@@ -40,7 +40,7 @@
 
       <mz-input-container class="col s12 m3">
         <input mz-input mz-validation id="cep" formControlName="cep" [dataSuccess]="'OK'" [label]="'Cep (obrigatório)'" [errorMessageResource]="errorMessageResources.cep"
-          length="100" type="text" [textMask]="{mask: utilMask.cep, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'cep')">
+          length="100" type="text" [textMask]="{mask: utilMask.cep, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.removerConteudoComEspacos(cadForm, 'cep')">
       </mz-input-container>
     </div>
 

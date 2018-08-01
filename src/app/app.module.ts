@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ApplicationErrorHandler } from './app.error-handler';
 import { ErrorDialogComponent } from './shared/messages/error-dialog/error-dialog.component';
-import { CardapioRestauranteComponent } from './restaurante/cardapio-restaurante/cardapio-restaurante.component';
+import { RestauranteDetalhesComponent } from './restaurante/restaurante-detalhes/restaurante-detalhes.component';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { CardapioRestauranteComponent } from './restaurante/cardapio-restaurante
     RestauranteComponent,
     LoginComponent,
     ErrorDialogComponent,
-    CardapioRestauranteComponent,
+    RestauranteDetalhesComponent,
   ],
   imports: [
     HttpClientModule,
