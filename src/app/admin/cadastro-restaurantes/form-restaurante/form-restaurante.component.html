@@ -4,17 +4,17 @@
     <div class="row">
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="razaoSocial" formControlName="razaoSocial" [label]="'Razão Social'" [errorMessageResource]="errorMessageResources.razaoSocial"
-          [dataSuccess]="messageSuccess" type="text" [length]="50">
+          [dataSuccess]="messageSuccess" type="text" [length]="50" (blur)="utilInput.trim(cadForm, 'razaoSocial')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="nome" formControlName="nome" [label]="'Nome Fantasia (obrigatório)'" [errorMessageResource]="errorMessageResources.nome"
-          [dataSuccess]="messageSuccess" type="text" [length]="50">
+          [dataSuccess]="messageSuccess" type="text" [length]="50" (blur)="utilInput.trim(cadForm, 'nome')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="cnpj" formControlName="cnpj" [dataSuccess]="'OK'" [label]="'CNPJ (opcional)'" [errorMessageResource]="errorMessageResources.cnpj"
-          length="50" minlength="3" maxlength="50" type="text">
+          length="14" type="text" (blur)="utilInput.trim(cadForm, 'cnpj')">
       </mz-input-container>
     </div>
 
@@ -35,7 +35,7 @@
 
       <mz-input-container class="col s12 m6">
         <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro'" [errorMessageResource]="errorMessageResources.logradouro"
-          length="100" type="text">
+          length="100" type="text" (blur)="utilInput.trim(cadForm, 'logradouro')">
       </mz-input-container>
     </div>
 
@@ -43,41 +43,42 @@
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage'"
-          [errorMessageResource]="errorMessageResources.facebook" length="100" type="text">
+          [errorMessageResource]="errorMessageResources.facebook" length="100" type="text" (blur)="utilInput.trim(cadForm, 'facebook')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram'" [errorMessageResource]="errorMessageResources.instagram"
-          length="100" type="text">
+          length="100" type="text" (blur)="utilInput.trim(cadForm, 'instagram')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site'" [errorMessageResource]="errorMessageResources.site"
-          length="100" type="text">
+          length="100" type="text" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone'" [errorMessageResource]="errorMessageResources.telefone"
-          length="100" type="text">
+          type="text" [textMask]="{mask: utilMask.telefone, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'telefone')">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m4">
+        <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'Celular/WhatsApp (opcional)'"
+          [errorMessageResource]="errorMessageResources.whatsapp" type="text" [textMask]="{mask: utilMask.celular, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'whatsapp')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
         <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail'" [errorMessageResource]="errorMessageResources.email"
-          length="100" type="email">
+          length="100" type="email" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
 
-      <mz-input-container class="col s12 m4">
-        <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'WhatsApp (opcional)'"
-          [errorMessageResource]="errorMessageResources.whatsapp" length="100" type="text">
-      </mz-input-container>
     </div>
 
     <div class="row">
       <mz-textarea-container class="col s12 m12">
         <textarea mz-textarea mz-validation id="descricao" formControlName="descricao" [label]="'Descrição (obrigatório)'" [errorMessageResource]="errorMessageResources.descricao"
-          length="150"></textarea>
+          length="150" (blur)="utilInput.trim(cadForm, 'descricao')"></textarea>
       </mz-textarea-container>
     </div>
     <div class="row">
@@ -99,7 +100,7 @@
     <div class="row">
       <mz-input-container class="col s12 m12">
         <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL'" [errorMessageResource]="errorMessageResources.imagePath"
-          type="text">
+          type="text" (blur)="utilInput.trim(cadForm, 'imagePath')">
       </mz-input-container>
     </div>
     <div class="row ">
