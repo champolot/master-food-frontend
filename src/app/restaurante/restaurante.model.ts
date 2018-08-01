@@ -12,6 +12,7 @@ export interface Restaurante {
   cidade?: string;
   logradouro?: string;
   site?: string;
+  cep?: string;
   facebook?: string;
   instagram?: string;
   whatsapp?: string;
