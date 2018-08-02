@@ -3,91 +3,111 @@
   <form novalidate [formGroup]="cadForm">
     <div class="row">
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="razaoSocial" [label]="'Razão Social'" (click)="valida('razaoSocial')" [validate]="true"
-          [dataError]="inputError" length="50" minlength="3" maxlength="50" type="text">
+        <input mz-input mz-validation id="razaoSocial" formControlName="razaoSocial" [label]="'Razão Social (opcional)'" [errorMessageResource]="errorMessageResources.razaoSocial"
+          [dataSuccess]="messageSuccess" type="text" [length]="50" (blur)="utilInput.trim(cadForm, 'razaoSocial')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="nome" [label]="'Nome Fantasia'" [validate]="true" [dataError]="'Nome fantasia deve ter no mínimo 3 caracteres'"
-          minlength="50" minlength="3" maxlength="50" type="text">
+        <input mz-input mz-validation id="nome" formControlName="nome" [label]="'Nome Fantasia (obrigatório)'" [errorMessageResource]="errorMessageResources.nome"
+          [dataSuccess]="messageSuccess" type="text" [length]="50" (blur)="utilInput.trim(cadForm, 'nome')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="cnpj" [label]="'CNPJ (opcional)'" length="50" minlength="3" maxlength="50" type="text">
+        <input mz-input mz-validation id="cnpj" formControlName="cnpj" [dataSuccess]="'OK'" [label]="'CNPJ (opcional)'" [errorMessageResource]="errorMessageResources.cnpj"
+          length="14" type="text" (blur)="utilInput.trim(cadForm, 'cnpj')">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-select-container class="col s12 m3">
-        <select mz-select formControlName="estado" (change)="carregarCidades()" [label]="'Estado'" [placeholder]="'Selecione seu estado'">
+        <select mz-select mz-validation id="estado" formControlName="estado" (change)="carregarCidades()" [label]="'Estado'" [errorMessageResource]="errorMessageResources.estado"
+          [placeholder]="'Selecione seu estado'">
           <option *ngFor="let estado of listaDeEstadosBrasileiros" value="{{estado.sigla}}" class="left circle">{{estado.nome}}</option>
         </select>
       </mz-select-container>
 
       <mz-select-container class="col sm12 m3">
-        <select mz-select formControlName="cidade" [label]="'Cidade'" [placeholder]="'Selecione sua cidade'" [disabled]="!cadForm.value.estado">
+        <select mz-select mz-validation id="cidade" formControlName="cidade" [label]="'Cidade'" [errorMessageResource]="errorMessageResources.cidade"
+          [placeholder]="'Selecione sua cidade'" [disabled]="!cadForm.value.estado">
           <option *ngFor="let cidade of cidadesSelect" class="left circle">{{cidade}}</option>
         </select>
       </mz-select-container>
 
-      <mz-input-container class="col s12 m6">
-        <input mz-input formControlName="logradouro" [label]="'Logradouro'" length="100" maxlength="100" type="text">
+      <mz-input-container class="col s12 m3">
+        <input mz-input mz-validation id="logradouro" formControlName="logradouro" [dataSuccess]="'OK'" [label]="'Logradouro (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.logradouro" length="100" type="text" (blur)="utilInput.trim(cadForm, 'logradouro')">
+      </mz-input-container>
+
+      <mz-input-container class="col s12 m3">
+        <input mz-input mz-validation id="cep" formControlName="cep" [dataSuccess]="'OK'" [label]="'Cep (obrigatório)'" [errorMessageResource]="errorMessageResources.cep"
+          length="100" type="text" [textMask]="{mask: utilMask.cep, guide:true, placeholderChar:'\u2000'}" (blur)="utilInput.removerConteudoComEspacos(cadForm, 'cep')">
       </mz-input-container>
     </div>
 
     <div class="row">
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="facebook" [label]="'Facebook Fanpage'" length="100" maxlength="100" type="text">
+        <input mz-input mz-validation id="facebook" formControlName="facebook" [dataSuccess]="'OK'" [label]="'Facebook Fanpage (opcional)'"
+          [errorMessageResource]="errorMessageResources.facebook" length="100" type="text" (blur)="utilInput.trim(cadForm, 'facebook')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="instagram" [label]="'Instagram'" length="100" maxlength="100" type="text">
+        <input mz-input mz-validation id="instagram" formControlName="instagram" [dataSuccess]="'OK'" [label]="'Instagram (opcional)'"
+          [errorMessageResource]="errorMessageResources.instagram" length="100" type="text" (blur)="utilInput.trim(cadForm, 'instagram')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="site" [label]="'Site'" length="100" maxlength="100" type="text">
+        <input mz-input mz-validation id="site" formControlName="site" [dataSuccess]="'OK'" [label]="'Site (opcional)'" [errorMessageResource]="errorMessageResources.site"
+          length="100" type="text" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
     </div>
 
     <div class="row">
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="telefone" [label]="'Telefone'" [validate]="true" length="100" maxlength="100" type="tel">
+        <input mz-input mz-validation id="telefone" formControlName="telefone" [dataSuccess]="'OK'" [label]="'Telefone (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.telefone" type="text" [textMask]="{mask: utilMask.telefone, guide:true, placeholderChar:'\u2000'}"
+          (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'telefone')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="email" [label]="'E-mail'" [validate]="true" length="100" maxlength="100" type="email">
+        <input mz-input mz-validation id="whatsapp" formControlName="whatsapp" [dataSuccess]="'OK'" [label]="'Celular/WhatsApp (opcional)'"
+          [errorMessageResource]="errorMessageResources.whatsapp" type="text" [textMask]="{mask: utilMask.celular, guide:true, placeholderChar:'\u2000'}"
+          (blur)="utilInput.verificarPreenchimentoDeTelefone(cadForm, 'whatsapp')">
       </mz-input-container>
 
       <mz-input-container class="col s12 m4">
-        <input mz-input formControlName="whatsapp" [label]="'WhatsApp (opcional)'" [validate]="true" length="100" maxlength="100"
-          type="text">
+        <input mz-input mz-validation id="email" formControlName="email" [dataSuccess]="'OK'" [label]="'E-mail (obrigatório)'" [errorMessageResource]="errorMessageResources.email"
+          length="100" type="email" (blur)="utilInput.trim(cadForm, 'site')">
       </mz-input-container>
+
     </div>
 
     <div class="row">
       <mz-textarea-container class="col s12 m12">
-        <textarea mz-textarea formControlName="descricao" [label]="'Descrição'" id="comment-textarea" length="150"></textarea>
+        <textarea mz-textarea mz-validation id="descricao" formControlName="descricao" [label]="'Descrição (obrigatório)'" [errorMessageResource]="errorMessageResources.descricao"
+          length="150" (blur)="utilInput.trim(cadForm, 'descricao')"></textarea>
       </mz-textarea-container>
     </div>
     <div class="row">
       <mz-select-container class="col s12 m4">
-        <select mz-select formControlName="categoria" [label]="'Categoria'" [placeholder]="'Selecione a Categoria'">
+        <select mz-select mz-validation id="categoria" formControlName="categoria" [label]="'Categoria'" [errorMessageResource]="errorMessageResources.categoria"
+          [placeholder]="'Selecione a Categoria'">
           <option *ngFor="let categoria of ['Churrascaria','Pizzaria','Comida Japonesa', 'Comida Chinesa', 'Comida Arabe']" value="{{categoria}}"
             class="left circle">{{categoria}}</option>
         </select>
       </mz-select-container>
 
-      <mz-timepicker-container class="col s12 m4">
+      <mz-input-container class="col s12 m6">
         <i mz-icon-mdi mz-input-prefix [icon]="'clock'">
         </i>
-        <input mz-timepicker formControlName="tempoEstimado" [label]="'Tempo Estimado de Entrega'" [options]="timepickerOptions"
-          id="timepicker" type="text">
-      </mz-timepicker-container>
+        <input input mz-input mz-validation id="tempoEstimado" formControlName="tempoEstimado" [dataSuccess]="'OK'" [label]="'Tempo Estimado de Entrega (em minutos)'"
+          [errorMessageResource]="errorMessageResources.tempoEstimado" id="tempoEstimado" type="number">
+      </mz-input-container>
     </div>
     <div class="row">
       <mz-input-container class="col s12 m12">
-        <input mz-input formControlName="imagePath" [label]="'Imagem URL'" [validate]="true" type="text">
+        <input mz-input mz-validation id="imagePath" formControlName="imagePath" [dataSuccess]="'OK'" [label]="'Imagem URL (obrigatório)'"
+          [errorMessageResource]="errorMessageResources.imagePath" type="text" (blur)="utilInput.trim(cadForm, 'imagePath')">
       </mz-input-container>
     </div>
     <div class="row ">

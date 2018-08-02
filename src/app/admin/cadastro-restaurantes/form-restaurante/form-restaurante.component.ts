@@ -3,9 +3,12 @@ import { ESTADOS_BRASILEIROS } from '../../../shared/enderecos/estados-brasileir
 import { CIDADES_BRASILEIRAS } from '../../../shared/enderecos/cidades-brasileiras';
 import { Estado } from '../../../shared/enderecos/estado.model';
 import { CidadesEstados } from '../../../shared/enderecos/cidades-estados.model';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { RestauranteService } from '../../../listar-restaurantes/restaurante.service';
 import { Restaurante } from '../../../restaurante/restaurante.model';
+import { UtilMask } from '../../../shared/utils/util.mask';
+import { UtilInput } from '../../../shared/utils/util.input';
+import { UtilPatterns } from '../../../shared/utils/util.patterns';
 
 @Component({
   selector: 'mf-form-restaurante',
@@ -13,60 +16,102 @@ import { Restaurante } from '../../../restaurante/restaurante.model';
   styleUrls: ['./form-restaurante.component.css']
 })
 export class FormRestauranteComponent implements OnInit {
-
+  utilMask = UtilMask;
+  utilInput = UtilInput;
   listaDeEstadosBrasileiros: Array<Estado> = ESTADOS_BRASILEIROS;
   listaCidadesBrasileiras: Array<CidadesEstados> = CIDADES_BRASILEIRAS;
   cidadesSelect: Array<string>;
   check = true;
   estado: any;
   cadForm: FormGroup;
-  inputError = 'nenhum erro';
-  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  campoObrigatorio = 'Campo obrigatório';
+  messageSuccess = 'OK';
+  msgMinLength = 'campo deve ter no mínimo 3 caracteres';
 
-  timepickerOptions: Pickadate.TimeOptions = {
-    default: '00:30', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Limpar', // text for clear-button
-    canceltext: 'Cancelar', // Text for cancel-button
-    autoclose: true, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: () => alert('AfterShow has been invoked.'), // function for after opening timepicker
+
+  // error messages
+  errorMessageResources = {
+    nome: {
+      required: this.campoObrigatorio,
+      minlength: this.msgMinLength
+    },
+    razaoSocial: {
+      required: this.campoObrigatorio,
+      minlength: this.msgMinLength
+    },
+    cnpj: {
+      minlength: 'O campo deve ter 11 ou 14 caracteres '
+    },
+    estado: {
+      required: this.campoObrigatorio,
+    },
+    cidade: {
+      required: this.campoObrigatorio,
+    },
+    logradouro: {
+      required: this.campoObrigatorio,
+      minlength: this.msgMinLength
+    },
+    cep: {
+      required: this.campoObrigatorio
+    },
+    facebook: {
+      pattern: 'Formato de URL inválido. Padrão de URL: https://facebook.com/SUAPAGINA'
+    },
+    instagram: {
+      pattern: 'Formato de URL inválido. Padrão de URL: https://instagram.com/SUAPAGINA'
+    },
+    site: {
+      pattern: 'Formato de URL inválido'
+    },
+    telefone: {
+      required: this.campoObrigatorio,
+    },
+    email: {
+      required: this.campoObrigatorio,
+      pattern: 'Formato de e-mail inválido'
+    },
+    whatsapp: {},
+    descricao: {
+      required: this.campoObrigatorio,
+      minlength: 'O campo deve ter no mínimo 20 caracteres'
+    },
+    categoria: {
+      required: this.campoObrigatorio,
+    },
+    tempoEstimado: {
+      required: this.campoObrigatorio,
+    },
+    imagePath: {
+      required: this.campoObrigatorio,
+    }
   };
 
   constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
   }
 
-
-  valida(field: string) {
-    console.log(this.cadForm.controls[field].parent.controls['value']);
-    return this.cadForm.get(field).errors;
-  }
-
-  eventHandler(event) {
-    console.log(event, event.keyCode, event.keyIdentifier);
-  }
-
   ngOnInit() {
     this.cadForm = this.formBuilder.group({
-      razaoSocial: this.formBuilder.control('', [Validators.required]),
-      nome: this.formBuilder.control('', [Validators.required]),
-      cnpj: this.formBuilder.control(''),
-      descricao: this.formBuilder.control('', [Validators.required]),
+      razaoSocial: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      nome: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      cnpj: this.formBuilder.control('', [Validators.minLength(11), Validators.maxLength(14)]),
+      descricao: this.formBuilder.control('', [Validators.required, Validators.minLength(20)]),
       categoria: this.formBuilder.control('', [Validators.required]),
       tempoEstimado: this.formBuilder.control('', [Validators.required]),
       imagePath: this.formBuilder.control('', [Validators.required]),
       estado: this.formBuilder.control('', [Validators.required]),
-      cidade: this.formBuilder.control({ value: undefined }, [Validators.required]),
-      logradouro: this.formBuilder.control('', [Validators.required]),
-      site: this.formBuilder.control(''),
-      facebook: this.formBuilder.control(''),
-      instagram: this.formBuilder.control(''),
+      cidade: this.formBuilder.control({ value: '' }, [Validators.required]),
+      logradouro: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
+      cep: this.formBuilder.control('', [Validators.required]),
+      site: this.formBuilder.control('', [Validators.pattern(UtilPatterns.websiteURL)]),
+      facebook: this.formBuilder.control('', [Validators.pattern(UtilPatterns.facebookPage)]),
+      instagram: this.formBuilder.control('', [Validators.pattern(UtilPatterns.instagramPage)]),
       whatsapp: this.formBuilder.control(''),
-      telefone: this.formBuilder.control('', [Validators.required]),
-      email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)])
+      telefone: this.formBuilder.control('', [Validators.required, Validators.minLength(14)]),
+      email: this.formBuilder.control('', [Validators.required, Validators.pattern(UtilPatterns.email)])
     });
+
+
   }
 
   carregarCidades() {
@@ -74,6 +119,7 @@ export class FormRestauranteComponent implements OnInit {
     console.log(this.selecionarCidadesDeEstado(this.cadForm.value.estado));
     this.cidadesSelect = this.selecionarCidadesDeEstado(this.cadForm.value.estado);
   }
+
 
   /**
    *
@@ -121,6 +167,16 @@ export class FormRestauranteComponent implements OnInit {
 
   retornarSomenteNumeros(str: string) {
     return str.replace(/[^\d]+/g, '');
+  }
+
+  teste(control: FormControl) {
+    return null;
+  }
+
+  converter(tempo: string) {
+    const arr: Array<string> = tempo.split(':');
+    return (arr[0] !== '0:0' && arr[1] !== '0:0') ? (parseInt(arr[0], 10) * 60) + parseInt(arr[1], 10) : false;
+
   }
 
 

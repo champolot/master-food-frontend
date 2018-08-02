@@ -19,7 +19,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.notificationService.errorNotifier.subscribe(message => {
       const errorDialog = this.modalService.open(ErrorDialogComponent);
-      (<ErrorDialogComponent>errorDialog.instance).setMessage(JSON.stringify(message));
+      try {
+        (<ErrorDialogComponent>errorDialog.instance).setMessage(JSON.stringify(message));
+      } catch {
+        (<ErrorDialogComponent>errorDialog.instance).setMessage(message);
+      }
     });
   }
 
