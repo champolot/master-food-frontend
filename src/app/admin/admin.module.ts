@@ -15,6 +15,7 @@ const ROUTES: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'cadastro-restaurantes', component: CadastroRestaurantesComponent },
       { path: 'form-restaurante', component: FormRestauranteComponent },
+      { path: 'form-restaurante/:id', component: FormRestauranteComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   }];
