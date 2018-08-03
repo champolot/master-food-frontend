@@ -6,15 +6,17 @@ import { CidadesEstados } from '../../../shared/enderecos/cidades-estados.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { RestauranteService } from '../../../listar-restaurantes/restaurante.service';
 import { Restaurante } from '../../../restaurante/restaurante.model';
-import { UtilMask } from '../../../shared/utils/util.mask';
-import { UtilInput } from '../../../shared/utils/util.input';
-import { UtilPatterns } from '../../../shared/utils/util.patterns';
+import { UtilMask } from '../../../shared/utils/utils.mask';
+import { UtilInput } from '../../../shared/utils/utils.input';
+import { UtilsPatterns } from '../../../shared/utils/utils.patterns';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mf-form-restaurante',
   templateUrl: './form-restaurante.component.html',
   styleUrls: ['./form-restaurante.component.css']
 })
+
 export class FormRestauranteComponent implements OnInit {
   utilMask = UtilMask;
   utilInput = UtilInput;
@@ -27,6 +29,8 @@ export class FormRestauranteComponent implements OnInit {
   campoObrigatorio = 'Campo obrigatório';
   messageSuccess = 'OK';
   msgMinLength = 'campo deve ter no mínimo 3 caracteres';
+  restaurante: Restaurante;
+  operacao = 'Cadastro'; // cadastrar ou editar
 
 
   // error messages
@@ -87,10 +91,12 @@ export class FormRestauranteComponent implements OnInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder, private restaurantService: RestauranteService) {
+  constructor(private formBuilder: FormBuilder, private restauranteService: RestauranteService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    console.clear();
     this.cadForm = this.formBuilder.group({
       razaoSocial: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
       nome: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
@@ -103,62 +109,58 @@ export class FormRestauranteComponent implements OnInit {
       cidade: this.formBuilder.control({ value: '' }, [Validators.required]),
       logradouro: this.formBuilder.control('', [Validators.required, Validators.minLength(3)]),
       cep: this.formBuilder.control('', [Validators.required]),
-      site: this.formBuilder.control('', [Validators.pattern(UtilPatterns.websiteURL)]),
-      facebook: this.formBuilder.control('', [Validators.pattern(UtilPatterns.facebookPage)]),
-      instagram: this.formBuilder.control('', [Validators.pattern(UtilPatterns.instagramPage)]),
+      site: this.formBuilder.control('', [Validators.pattern(UtilsPatterns.websiteURL)]),
+      facebook: this.formBuilder.control('', [Validators.pattern(UtilsPatterns.facebookPage)]),
+      instagram: this.formBuilder.control('', [Validators.pattern(UtilsPatterns.instagramPage)]),
       whatsapp: this.formBuilder.control(''),
       telefone: this.formBuilder.control('', [Validators.required, Validators.minLength(14)]),
-      email: this.formBuilder.control('', [Validators.required, Validators.pattern(UtilPatterns.email)])
+      email: this.formBuilder.control('', [Validators.required])
     });
 
-
+    if (this.route.snapshot.params['id']) {
+      this.operacao = 'Editar';
+      try {
+        this.restauranteService.findById(this.route.snapshot.params['id'])
+          .subscribe(restaurante => {
+            this.restaurante = restaurante;
+            Object.keys(this.restaurante).map(elem => {
+              if (elem.indexOf('_id') === -1 && elem.indexOf('avaliacao') === -1
+                && elem.indexOf('__v') === -1) {
+                if (elem === 'cidade') {
+                  this.carregarCidadesParaEdicao(this.restaurante.estado);
+                  this.carregarCidades();
+                }
+                this.cadForm.get(elem).setValue(this.restaurante[elem]);
+              }
+            });
+            return this.restaurante;
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   carregarCidades() {
-    console.log(this.cadForm.value.estado);
-    console.log(this.selecionarCidadesDeEstado(this.cadForm.value.estado));
     this.cidadesSelect = this.selecionarCidadesDeEstado(this.cadForm.value.estado);
   }
 
-
   /**
-   *
-   * @param facebookURL string contendo url da página no facebook
-   * @return se url inválida, retorna false, se não, retorna o id da página, somente os ids serão salvos
-   * para economizar espaço nos documentos do banco de dados
-   *
+   * Utilizada quando o componente está no modo de edição do restaurante
+   * @param siglaEstado sigla do estado
    */
-  validarURLFacebook(facebookURL: string) {
-    if (facebookURL.indexOf('@') === 0) {
-      return facebookURL.replace('@', '');
-    }
-
-    if (facebookURL.length < 26) { return false; }
-    if (facebookURL.substring(0, 24) !== 'https://www.facebook.com') { return false; }
-    return facebookURL.substring(25);
-  }
-
-  /**
-   *
-   * @param facebookURL string contendo url da página no instagram
-   * @return se url inválida, retorna false, se não, retorna o id da página, somente os ids serão salvos
-   * para economizar espaço nos documentos do banco de dados
-   *
-   */
-  validarURLInstagram(instagramURL: string) {
-    if (instagramURL.indexOf('@') === 0) {
-      return instagramURL.replace('@', '');
-    }
-    if (instagramURL.length < 27) { return false; }
-    if (instagramURL.substring(0, 25) !== 'https://www.instagram.com') { return false; }
-    return instagramURL.substring(26);
+  carregarCidadesParaEdicao(siglaEstado: string) {
+    this.cidadesSelect = this.selecionarCidadesDeEstado(siglaEstado);
   }
 
   salvarRestaurante(elem: Restaurante) {
     elem.cnpj = this.retornarSomenteNumeros(elem.cnpj);
     elem.telefone = this.retornarSomenteNumeros(elem.telefone);
     elem.whatsapp = this.retornarSomenteNumeros(elem.whatsapp);
-    this.restaurantService.save(elem).subscribe();
+    elem.cep = this.retornarSomenteNumeros(elem.cep);
+    this.restaurante = Object.assign(this.restaurante, elem);
+    console.log(this.restaurante);
+    this.restauranteService.save(this.restaurante).subscribe();
   }
 
   private selecionarCidadesDeEstado(siglaEstado: string): string[] {
